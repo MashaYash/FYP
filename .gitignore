@@ -1,0 +1,6 @@
+# Local-only; not pushed (per project setup)
+server/server.py
+
+# Python
+__pycache__/
+*.pyc

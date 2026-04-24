@@ -1,0 +1,60 @@
+AllergyGenie - Local Changes Log
+Date: 2026-04-23
+
+This file documents all major changes implemented in this session.
+
+1) Backend enhancements in server/server.py
+- Added profile and personalization support:
+  - POST /userProfile
+  - GET /userProfile
+- Added ingredient safety analysis:
+  - POST /ingredientRiskCheck
+- Added meal planning:
+  - POST /mealPlan
+- Added dietary guidance:
+  - POST /dietaryGuidance
+- Added symptom journaling:
+  - POST /symptomJournalEntry
+  - GET /symptomJournalInsights
+- Added reminder and daily tools:
+  - POST /medicationReminder
+  - GET /shoppingList
+  - POST /restaurantSafety
+  - POST /travelCard
+- Added emergency coaching:
+  - POST /emergencyCoach
+- Added unified assistant router:
+  - POST /assistantQuery
+  - Routes user queries to meal planning, ingredient checks, emergency, dietary guidance, restaurant safety, travel card, or fallback allergy chat.
+
+2) Chatbot integration in allergyGenie/app/(tabs)/chatbot.tsx
+- Switched assistant call from /chatComplete to /assistantQuery.
+- Added richer quick prompts:
+  - dietary guidance
+  - restaurant safety
+  - travel card
+- Added structured response formatter for:
+  - plan output
+  - emergency steps
+  - insights
+  - card text
+
+3) Bug fix for meal planner visibility and day count
+- Fixed formatting order so meal plans render day-by-day instead of only showing guidance.
+- Added day extraction logic in backend assistant query:
+  - Parses inputs like "7 day" and returns matching plan length.
+
+4) Runtime verification performed
+- Confirmed backend openapi includes new endpoints.
+- Confirmed frontend web server is running on localhost:8081.
+- Confirmed backend is healthy on localhost:8000.
+- Confirmed /assistantQuery returns a 7-day meal plan when requested.
+
+5) Files changed
+- server/server.py
+- allergyGenie/app/(tabs)/chatbot.tsx
+- CHANGES_APPLIED_LOCAL.txt (this file)
+
+Notes:
+- Changes are saved locally on disk in this project folder.
+- In-memory app.state data (profile/journal/reminders) resets when backend restarts.
