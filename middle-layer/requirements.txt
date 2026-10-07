@@ -1,0 +1,31 @@
+fastapi
+uvicorn[standard]
+python-multipart
+
+pillow
+
+requests
+httpx
+
+pydantic
+
+pandas
+openpyxl
+
+numpy
+scikit-learn
+
+openai
+
+pytesseract
+
+aiohttp
+
+python-dotenv
+python-jose[cryptography]
+pdf2image
+
+# ── Improved document processing ──────────────────────────────────────────────
+PyMuPDF          # native PDF text extraction (no OCR needed for text-based PDFs)
+opencv-python-headless   # image preprocessing: deskew, denoise, threshold, resize
+python-dateutil  # already used via dateutil.parser in server.py — pin explicit
