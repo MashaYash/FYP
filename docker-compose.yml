@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: allergy_genie
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root342
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+
+  db-service:
+    build:
+      context: .
+      dockerfile: db-service/Dockerfile
+
+    ports:
+      - "8010:8010"
+
+    environment:
+      DB_HOST: postgres
+      DB_NAME: allergy_genie
+      DB_USER: postgres
+      DB_PASSWORD: root342
+      DB_PORT: 5432
+
+    depends_on:
+      - postgres
+
+  middleware:
+    build:
+      context: .
+      dockerfile: middle-layer/Dockerfile
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      DB_SERVICE_URL: http://db-service:8010
+      TESSERACT_CMD: /usr/bin/tesseract
+      SECRET_KEY: ${SECRET_KEY}
+
+    depends_on:
+      - db-service
+volumes:
+  postgres_data:
